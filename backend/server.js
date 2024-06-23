@@ -8,7 +8,7 @@ const app = express();
 const PORT = process.env.PORT || 4000
 
 const corsOptions = {
-    origin: '*',
+    origin: 'https://my-forms-eta.vercel.app',
 };
 
 app.use(cors(corsOptions));
