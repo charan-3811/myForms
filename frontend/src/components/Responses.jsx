@@ -10,7 +10,7 @@ function Responses() {
     useEffect(() => {
         const fetchForm = async () => {
             try {
-                const response = await axios.get(`http://localhost:4000/form/${id}`);
+                const response = await axios.get(`https://myformsbackend.onrender.com/form/${id}`);
                 if (response.status === 200) {
                     setResponses(response.data.responses || []);
                 }

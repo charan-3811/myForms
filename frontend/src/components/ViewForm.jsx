@@ -16,7 +16,7 @@ const ViewForm = () => {
     useEffect(() => {
         const fetchForm = async () => {
             try {
-                const response = await axios.get(`http://localhost:4000/form/${id}`);
+                const response = await axios.get(`https://myformsbackend.onrender.com/form/${id}`);
                 if (response.status === 200) {
                     const { title, description, questions, responses = [] } = response.data;
                     setTitle(title);
@@ -38,7 +38,7 @@ const ViewForm = () => {
 
     const saveForm = async () => {
         try {
-            const response = await axios.post(`http://localhost:4000/updateForm`, {
+            const response = await axios.post(`https://myformsbackend.onrender.com/updateForm`, {
                 id,
                 title,
                 description,

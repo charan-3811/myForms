@@ -38,6 +38,10 @@ app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
 //signup
+
+app.get("/",async (req,res)=>{
+    res.send(`server running`)
+})
 app.post("/signup", async (req, res) => {
     try {
         const { name, email, password } = req.body;

@@ -20,7 +20,7 @@ function Signup() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post("http://localhost:4000/signup", details);
+            const response = await axios.post("https://myformsbackend.onrender.com/signup", details);
             console.log(response.data);
             if (response.data === "Added successfully") {
                 sessionStorage.setItem("user", details.email);

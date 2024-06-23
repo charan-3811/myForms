@@ -13,7 +13,7 @@ function FormResponse() {
     useEffect(() => {
         const fetchForm = async () => {
             try {
-                const res = await axios.get(`http://localhost:4000/form/${id}`);
+                const res = await axios.get(`https://myformsbackend.onrender.com/form/${id}`);
                 if (res.status === 200) {
                     setForm(res.data);
                     // Initialize responses array based on number of questions
@@ -55,7 +55,7 @@ function FormResponse() {
                 answer: response,
             }));
 
-            const res = await axios.post(`http://localhost:4000/form/${id}/response`, {
+            const res = await axios.post(`https://myformsbackend.onrender.com/form/${id}/response`, {
                 responses: responseToSubmit,
                 email: user
             });
