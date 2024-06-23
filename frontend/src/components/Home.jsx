@@ -44,7 +44,7 @@ function Home() {
     }
 
     function handleShare(id) {
-        navigator.clipboard.writeText(`http:localhost:5173/form/${id}`).then(()=>{
+        navigator.clipboard.writeText(`https://my-forms-khaki.vercel.app/form/${id}`).then(()=>{
             alert("Link copied to clipboard")
         })
     }
