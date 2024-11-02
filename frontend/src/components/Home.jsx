@@ -11,7 +11,7 @@ function Home() {
     useEffect(() => {
         const fetchForms = async () => {
             try {
-                const response = await axios.get(`https://myformsbackend.onrender.com/forms/${user}`);
+                const response = await axios.get(`http://localhost:4000/forms/${user}`);
                 if (response.status === 200) {
                     setForms(response.data);
                     console.log(response.data);
@@ -33,7 +33,7 @@ function Home() {
 
     async function handleDelete(id) {
         try {
-            const response = await axios.delete(`https://myformsbackend.onrender.com/deleteForm/${id}`);
+            const response = await axios.delete(`http://localhost:4000/deleteForm/${id}`);
             if (response.status === 200) {
                 setForms((prevForms) => prevForms.filter((form) => form._id !== id));
             }
@@ -44,7 +44,7 @@ function Home() {
     }
 
     function handleShare(id) {
-        navigator.clipboard.writeText(`https://my-forms-eta.vercel.app/form/${id}`).then(()=>{
+        navigator.clipboard.writeText(`http://localhost:5173/form/${id}`).then(()=>{
             alert("Link copied to clipboard")
         })
     }

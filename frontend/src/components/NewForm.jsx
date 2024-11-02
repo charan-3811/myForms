@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import  { useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
@@ -10,6 +10,7 @@ function NewForm() {
     const [title, setTitle] = useState("Untitled Form");
     const [description, setDescription] = useState("");
     const navigate = useNavigate();
+    // eslint-disable-next-line no-unused-vars
     const [display, setDisplay] = useState("questions");
 
     const addQuestion = () => {
@@ -29,7 +30,7 @@ function NewForm() {
 
     const saveForm = async () => {
         try {
-            const response = await axios.post("https://myformsbackend.onrender.com/newForm", {
+            const response = await axios.post("http://localhost:4000/newForm", {
                 user: user,
                 title: title,
                 description: description,
@@ -63,7 +64,7 @@ function NewForm() {
         setQuestions(prevQuestions => {
             const updatedQuestions = [...prevQuestions];
             updatedQuestions[index].ansType = value;
-            updatedQuestions[index].options = []; // Clear options when changing answer type
+            updatedQuestions[index].options = []; 
             return updatedQuestions;
         });
     };
@@ -130,6 +131,7 @@ function NewForm() {
                         <button onClick={clearForm}>Clear</button>
                     </div>
 
+                    {/* questions*/}
                     <DragDropContext onDragEnd={onDragEnd}>
                         <Droppable droppableId={`${questions}`}>
                             {(provided) => (
@@ -164,10 +166,10 @@ function NewForm() {
                                                             type="text"
                                                             placeholder="Enter the question"
                                                             value={question.name}
-                                                            onChange={(e) => handleQuestionChange(qIndex, e.target.value)}
+                                                            onChange={(e) => handleQuestionChange(index, e.target.value)}
                                                             style={{ flex: 1, marginBottom: "0.5rem", padding: "0.5rem" }}
                                                         />
-                                                        <button onClick={() => handleDeleteQuestion(qIndex)} style={{ marginLeft: "0.5rem" }}>Delete</button>
+                                                        <button onClick={() => handleDeleteQuestion(index)} style={{ marginLeft: "0.5rem" }}>Delete</button>
                                                     </div>
                                                     <select
                                                         value={question.ansType}

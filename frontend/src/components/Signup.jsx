@@ -1,5 +1,4 @@
-// src/components/Signup.jsx
-import React, { useState, useContext } from "react";
+import  { useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
@@ -20,12 +19,12 @@ function Signup() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post("https://myformsbackend.onrender.com/signup", details);
+            const response = await axios.post("http://localhost:4000/signup", details);
             console.log(response.data);
             if (response.data === "Added successfully") {
                 sessionStorage.setItem("user", details.email);
                 setUser(details.email);
-                navigate("/home"); // Navigate to home page after successful signup
+                navigate("/home");
             } else {
                 alert("Failed to add user");
             }
@@ -36,9 +35,20 @@ function Signup() {
     };
 
     return (
-        <div>
-            <h1>Signup</h1>
-            <form onSubmit={handleSubmit}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', color: 'black' }}>
+            <h1>SIGNUP</h1>
+            <form onSubmit={handleSubmit} 
+                style={{
+                    backgroundColor: 'white',
+                    color: 'black',
+                    minHeight: '50%',
+                    minWidth: '50%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    padding: '1rem',
+                }}
+            >
                 <label htmlFor="name">Name</label>
                 <input
                     type="text"
@@ -46,6 +56,7 @@ function Signup() {
                     placeholder="Enter your name"
                     value={details.name}
                     onChange={handleChange}
+                    style={{ minHeight: '2rem', width: '70%' }}
                 />
                 <br />
                 <label htmlFor="email">Email</label>
@@ -55,6 +66,7 @@ function Signup() {
                     placeholder="Enter your email"
                     value={details.email}
                     onChange={handleChange}
+                    style={{ minHeight: '2rem', width: '70%' }}
                 />
                 <br />
                 <label htmlFor="password">Password</label>
@@ -64,9 +76,10 @@ function Signup() {
                     placeholder="Enter your password"
                     value={details.password}
                     onChange={handleChange}
+                    style={{ minHeight: '2rem', width: '70%' }}
                 />
                 <br />
-                <button type="submit">Submit</button>
+                <button type="submit">SUBMIT</button>
             </form>
         </div>
     );

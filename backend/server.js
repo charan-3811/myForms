@@ -8,7 +8,7 @@ const app = express();
 const PORT = process.env.PORT || 4000
 
 const corsOptions = {
-    origin: 'https://my-forms-eta.vercel.app',
+    origin: '*',
 };
 
 app.use(cors(corsOptions));
@@ -37,11 +37,13 @@ connect().then();
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
-//signup
+
 
 app.get("/",async (req,res)=>{
     res.send(`server running`)
 })
+
+//signup
 app.post("/signup", async (req, res) => {
     try {
         const { name, email, password } = req.body;
@@ -73,6 +75,7 @@ app.post("/signup", async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 });
+
 // login
 app.post("/login", async (req, res) => {
     try {
@@ -119,14 +122,14 @@ app.get("/forms/:user", async (req, res) => {
 //newForm saving
 app.post("/newForm", async (req, res) => {
     try {
-        const { user, title, description, questions } = req.body;
+        const { user, title, description, sections } = req.body;
 
         const newForm = {
             _id: new ObjectId(),
             email: user,
             title: title,
             description: description,
-            questions: questions,
+            sections: sections,
         };
 
         const response = await forms.insertOne(newForm);
@@ -232,7 +235,7 @@ app.post("/updateForm", async (req, res) => {
                 $set: {
                     title: req.body.title,
                     description: req.body.description,
-                    questions: req.body.questions
+                    sections: req.body.sections
                 }
             },
             { new: true }

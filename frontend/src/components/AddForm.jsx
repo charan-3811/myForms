@@ -1,35 +1,17 @@
-import {useEffect, useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import axios from 'axios';
 import { UserContext } from "../contexts/UserContext";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
-function ViewForm() {
+function AddForm() {
     const {user}=useContext(UserContext)
     const [sections, setSections] = useState([]);
     const [formTitle, setFormTitle] = useState("Untitled Form");
     const [formDescription, setFormDescription] = useState("Description");
     const navigate=useNavigate()
-    const {id}=useParams()
-    useEffect(() => {
-        const fetchForm = async () => {
-            try {
-                const response = await axios.get(`http://localhost:4000/form/${id}`);
-                if (response.status === 200) {
-                    const { title, description, sections } = response.data;
-                    setFormTitle(title);
-                    setFormDescription(description);
-                    setSections(sections);
-                }
-            } catch (error) {
-                alert("Unable to fetch the data");
-                console.error(error);
-            }
-        };
-        fetchForm();
-    }, [id]);
 
     const handleSectionChange = (index, field, value) => {
         const updatedSections = [...sections];
@@ -98,8 +80,8 @@ function ViewForm() {
     // Save form data to backend
     const saveForm = async () => {
         try {
-            const formData = {id:id ,title: formTitle, description: formDescription, sections:sections };
-            const response=await axios.post('http://localhost:4000/updateForm', formData); 
+            const formData = {user:user ,title: formTitle, description: formDescription, sections:sections };
+            const response=await axios.post('http://localhost:4000/newForm', formData); 
             if(response.status===200)
             {
                 alert('Form saved successfully');
@@ -123,18 +105,7 @@ function ViewForm() {
     };
 
     return (
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", margin: "1rem", color: "black",}}>
-             <div style={{ marginBottom: "1rem" }}>
-                <button style={{ marginRight: "0.5rem", padding: "0.5rem 1rem", fontSize: "1rem" }} onClick={()=>{navigate(`/viewQuestions/${id}`)}}>
-                    Questions
-                </button>
-                <button style={{ padding: "0.5rem 1rem", fontSize: "1rem" }}  onClick={()=>{navigate(`/viewResponses/${id}`)}}>
-                    Responses
-                </button>
-            </div>
-
-           
-            <DndProvider backend={HTML5Backend}>
+        <DndProvider backend={HTML5Backend}>
             <div style={styles.container}>
                 <input
                     type="text"
@@ -208,8 +179,6 @@ function ViewForm() {
                 </button>
             </div>
         </DndProvider>
-        </div>
-       
     );
 }
 
@@ -311,21 +280,19 @@ function DraggableQuestion({
 }
 
 
-export default ViewForm;
+export default AddForm;
 
 const styles = {
     container: {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        width:'75%',
-        maxWidth: "100vw",
+        maxWidth: "75%",
         margin: "auto",
         padding: "1rem",
         backgroundColor: "#f9f9f9",
         borderRadius: "8px",
         boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
-        
     },
     titles: {
         width: "50%",
@@ -333,8 +300,6 @@ const styles = {
         padding: "0.5rem",
         border: "1px solid #ccc",
         borderRadius: "4px",
-        backgroundColor:'white',
-        color:'black'
     },
     sectionContainer: {
         display: "flex",

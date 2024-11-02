@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import  { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
 
@@ -14,11 +14,11 @@ function NavBar() {
 
     return (
         <div style={navBarStyle}>
-            <Link to="/home" style={linkStyle}>
+            <Link to="/home" >
                 <button>Home</button>
             </Link>
             {user === "None" ? (
-                <Link to="/" style={linkStyle}>
+                <Link to="/" >
                     <button>Login</button>
                 </Link>
             ) : (
@@ -36,12 +36,9 @@ const navBarStyle = {
     justifyContent: 'space-between',
     alignItems: 'center',
     color: 'white',
-    boxSizing: 'border-box', // Ensure padding is included in the width
+    boxSizing: 'border-box',
 };
 
 
-const linkStyle = {
-    textDecoration: 'none',
-};
 
 export default NavBar;
